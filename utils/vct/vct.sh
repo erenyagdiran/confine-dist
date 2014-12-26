@@ -463,8 +463,16 @@ vct_system_install_server() {
 
     # Setup https certificate for the management network
     vct_do python "$VCT_DIR/server/manage.py" setuppki --org_name VCT --noinput
-    vct_sudo apt-get install -y libapache2-mod-wsgi
+  
+    #
+    # Patch apache 2.2. to 2.4
+    # New packages are added
+    # /etc/apache2/conf.d is not used anymore.
+    # Server.conf should be placed in /etc/apache2/sites-available
+    vct_sudo apt-get install -y libapache2-mod-wsgi apache2 apache2-bin apache2-data
+    vct_sudo mkdir /etc/apache2/conf.d
     vct_sudo python "$VCT_DIR/server/manage.py" setupapache --noinput --user $VCT_USER --processes 2 --threads 25
+    vct_sudo mv /etc/apache2/conf.d/server.conf /etc/apache2/sites-available
 
     # Move static files in a place where apache can get them
     python "$VCT_DIR/server/manage.py" collectstatic --noinput
