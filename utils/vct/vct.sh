@@ -97,10 +97,10 @@ vct_do_sh() {
 
 # Same as `vct_do()`, run command with `sudo`.
 vct_sudo() {
-    if [ "${VCT_DRY_RUN:-}" ]; then
+    #if [ "${VCT_DRY_RUN:-}" ]; then
 	vct_do sudo $@
 	return $?
-    fi
+    #fi
 
     local QUERY=
 
@@ -427,7 +427,8 @@ vct_system_install_server() {
     if [[ ! $(pip freeze|grep confine-controller) ]]; then
         # First time controller gets installed
         vct_sudo pip install confine-controller==$VCT_SERVER_VERSION
-        vct_sudo git clone https://github.com/erenyagdiran/controller.git /usr/local/lib/python2.7/dist-packages/
+	vct_sudo rm -rf /usr/local/lib/python2.7/dist-packages/controller
+        vct_sudo git clone https://github.com/erenyagdiran/controller.git /usr/local/lib/python2.7/dist-packages/controller
         vct_sudo controller-admin.sh install_requirements
     else
         # An older version is present, just go ahead and proceed with normal way
