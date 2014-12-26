@@ -371,7 +371,7 @@ check_deb() {
 		    vct_sudo "apt-get update" && UPDATED=1
 		fi
 
-		vct_sudo "apt-get  --no-install-recommends install $PACKAGE" || \
+		vct_sudo "apt-get -y --no-install-recommends install $PACKAGE" || \
                     { err $FUNCNAME "Missing debian packages $PACKAGE !!!" $CMD_SOFT || return 1 ;}
 	    fi
 
@@ -427,6 +427,7 @@ vct_system_install_server() {
     if [[ ! $(pip freeze|grep confine-controller) ]]; then
         # First time controller gets installed
         vct_sudo pip install confine-controller==$VCT_SERVER_VERSION
+        vct_sudo git clone https://github.com/erenyagdiran/controller.git /usr/local/lib/python2.7/dist-packages/
         vct_sudo controller-admin.sh install_requirements
     else
         # An older version is present, just go ahead and proceed with normal way
