@@ -460,6 +460,7 @@ vct_system_install_server() {
     fi
     
     # Setup tincd
+    vct_sudo service rabbitmq-server restart #Without this, setuptincd cannot create configuration file
     vct_sudo python "$VCT_DIR/server/manage.py" setuptincd --noinput --address="${VCT_SERVER_TINC_IP}"
     python "$VCT_DIR/server/manage.py" updatetincd
 
