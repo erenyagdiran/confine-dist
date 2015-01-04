@@ -200,7 +200,7 @@ vct_system_config_check() {
 
 
 # Typical cases:
-# VCT_NODE_TEMPLATE_URL="http://media.confine-project.eu/vct/openwrt-x86-generic-combined-ext4.img.tgz"
+# VCT_NODE_TEMPLATE_URL="http://media.confine-project.eu/vct/old/openwrt-x86-generic-combined-ext4.img.tgz"
 # VCT_NODE_TEMPLATE_URL="ssh:22:user@example.org:///confine/confine-dist/openwrt/bin/x86/openwrt-x86-generic-combined-ext4.img.gz"
 # VCT_NODE_TEMPLATE_URL="file:///../../openwrt/bin/x86/openwrt-x86-generic-combined-ext4.img.gz"
 
