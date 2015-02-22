@@ -445,8 +445,10 @@ vct_system_install_server() {
     if [ -f /home/vct/vct_true ];
     then
          vct_sudo python "$VCT_DIR/server/manage.py" setuppostgres --db_name controller --db_user confine --db_password confine
+         echo "vct_true is found"
     else
          vct_sudo python "$VCT_DIR/server/manage.py" setuppostgres --db_name controller --db_user confine --db_password confine --db_host db
+         echo "vct_true is not found"
     fi
     
     if [[ $CURRENT_VERSION != false ]]; then
