@@ -442,7 +442,12 @@ vct_system_install_server() {
     
     # We need to be sure that postgres is up:
     vct_sudo service postgresql start
-    vct_sudo python "$VCT_DIR/server/manage.py" setuppostgres --db_name controller --db_user confine --db_password confine --db_host db
+    if [ -f /home/vct/vct_true ];
+    then
+         vct_sudo python "$VCT_DIR/server/manage.py" setuppostgres --db_name controller --db_user confine --db_password confine
+    else
+         vct_sudo python "$VCT_DIR/server/manage.py" setuppostgres --db_name controller --db_user confine --db_password confine --db_host db
+    fi
     
     if [[ $CURRENT_VERSION != false ]]; then
         # Per version upgrade specific operations
